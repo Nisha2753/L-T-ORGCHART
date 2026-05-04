@@ -1,0 +1,18 @@
+_schema-version: '3.1'
+ID: org-chart-modelling
+version: 1.0.0
+description: Organisation Chart Modelling Platform
+
+modules:
+  - name: org-chart-ui
+    type: html5
+    path: .
+    build-parameters:
+      builder: custom
+      commands:
+        - npm install
+        - npm run build
+      supported-platforms: []
+    parameters:
+      disk-quota: 256M
+      memory: 256M
