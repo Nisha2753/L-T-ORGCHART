@@ -239,6 +239,7 @@ if (!currentUser) {
   return <LoginPage onLogin={handleLogin} />;
 }
 
+
   return (
     <div className="app-layout">
       <Header
