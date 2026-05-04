@@ -5,6 +5,7 @@ import { useState } from "react";
 //import { Search, X, Users, GitBranch, RefreshCw, Wifi, WifiOff, UserPlus } from "lucide-react";
 import { Search, X, Users, GitBranch, RefreshCw, Wifi, WifiOff, UserPlus, Download } from "lucide-react";
 import ltLogo from "../assets/lt-logo.png";
+import ProfileMenu from "./ProfileMenu";
 
 // ─── Add Employee Modal ───────────────────────────────────────────────────────
 const AddEmployeeModal = ({ onClose, onAdd, allEmployees = [] }) => {
@@ -199,6 +200,8 @@ const Header = ({
   onRefresh, refreshing, isLive,
   onAddEmployee, allEmployees = [],
   onDownload,
+  currentUser,    
+  onLogout,
 }) => {
   const [showAddModal, setShowAddModal] = useState(false);
 
@@ -312,6 +315,8 @@ const Header = ({
             </button>
           )}
         </div>
+        <div style={{ width: 1, height: 28, background: "#e2e8f0", margin: "0 4px" }} />
+        <ProfileMenu user={currentUser} onLogout={onLogout} />
       </header>
 
       {/* Add Employee Modal */}

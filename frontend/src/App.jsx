@@ -4,6 +4,8 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { ReactFlowProvider, useNodesState, useEdgesState } from "reactflow";
 import "./App.css";
+import LoginPage from "./pages/LoginPage";
+import ProfileMenu from "./components/ProfileMenu";
 
 import Header from "./components/Header";
 import OrgChart from "./components/OrgChart";
@@ -36,6 +38,23 @@ const AppInner = () => {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
 
+  const [currentUser, setCurrentUser] = useState(() => {
+  // Persist login across page refresh
+  const saved = sessionStorage.getItem("lt_orgchart_user");
+  
+  return saved ? JSON.parse(saved) : null;
+
+});
+
+const handleLogin = (user) => {
+  sessionStorage.setItem("lt_orgchart_user", JSON.stringify(user));
+  setCurrentUser(user);
+};
+
+const handleLogout = () => {
+  sessionStorage.removeItem("lt_orgchart_user");
+  setCurrentUser(null);
+};
   // ── Load data ────────────────────────────────────────────────────────────────
   const loadData = useCallback(async () => {
     try {
@@ -216,6 +235,9 @@ const handleDownload = useCallback(() => {
   [staticNewEmployees]);
 
   const panelOpen = !!selectedEmployee;
+if (!currentUser) {
+  return <LoginPage onLogin={handleLogin} />;
+}
 
   return (
     <div className="app-layout">
@@ -234,6 +256,8 @@ const handleDownload = useCallback(() => {
         onAddEmployee={handleAddEmployee}
         allEmployees={[...allEmployees, ...staticNewEmployees]}
         onDownload={handleDownload}
+        currentUser={currentUser}       
+        onLogout={handleLogout}          
       />
 
       <div className={`app-body ${panelOpen ? "panel-open" : ""}`}>
