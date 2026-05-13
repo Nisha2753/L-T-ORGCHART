@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // /**
 //  * EmployeeCard.jsx
 //  * Custom React Flow node — represents a single employee in the org chart.
@@ -117,6 +118,18 @@
 import { memo } from 'react';
 import { Handle, Position } from 'reactflow';
 import { MapPin, Building2, Hash, Layers, Phone, Mail } from 'lucide-react';
+=======
+/**
+ * EmployeeCard.jsx
+ * Custom React Flow node — represents a single employee in the org chart.
+ */
+/**
+ * EmployeeCard.jsx — with static badge for locally added cards
+ */
+import { memo } from 'react';
+import { Handle, Position } from 'reactflow';
+import { MapPin, Building2 } from 'lucide-react';
+>>>>>>> ed8451212a7a20efc6a494620af9462aa2b382e6
 
 const LEVEL_COLORS = {
   0: '#e67700', 1: '#3b5bdb', 2: '#0891b2', 3: '#059669', 4: '#7c3aed',
@@ -127,6 +140,7 @@ const EmployeeCard = memo(({ data, selected }) => {
     id, name, designation, department, location,
     avatar, avatarColor, level = 0,
     isHighlighted, isDimmed, isStatic,
+<<<<<<< HEAD
     onDetach,
     enabledFields,   // Set<string> passed from App via OrgChart enrichedNodes
     // Optional extra fields
@@ -136,6 +150,10 @@ const EmployeeCard = memo(({ data, selected }) => {
   const ef = enabledFields || new Set(["name", "designation", "id", "department", "location"]);
   const show = (key) => ef.has(key);
 
+=======
+  } = data;
+
+>>>>>>> ed8451212a7a20efc6a494620af9462aa2b382e6
   const levelColor = LEVEL_COLORS[level] || LEVEL_COLORS[3];
 
   const cardClass = [
@@ -153,6 +171,7 @@ const EmployeeCard = memo(({ data, selected }) => {
         border: '2px solid #ffffff', top: -4,
       }} />
 
+<<<<<<< HEAD
       {/* ❌ Detach → Parking Lot */}
       {onDetach && (
         <button
@@ -174,17 +193,30 @@ const EmployeeCard = memo(({ data, selected }) => {
       )}
 
       {/* LOCAL badge */}
+=======
+      {/* Static badge */}
+>>>>>>> ed8451212a7a20efc6a494620af9462aa2b382e6
       {isStatic && (
         <div style={{
           position: "absolute", top: 8, right: 8,
           fontSize: 9, fontWeight: 700, letterSpacing: "0.6px",
           padding: "2px 6px", borderRadius: 4,
           background: "#eff6ff", color: "#1d4ed8",
+<<<<<<< HEAD
           border: "1px solid #bfdbfe", textTransform: "uppercase", zIndex: 1,
         }}>LOCAL</div>
       )}
 
       {/* Header: avatar + name + designation (always shown) */}
+=======
+          border: "1px solid #bfdbfe", textTransform: "uppercase",
+          zIndex: 1,
+        }}>
+          LOCAL
+        </div>
+      )}
+
+>>>>>>> ed8451212a7a20efc6a494620af9462aa2b382e6
       <div className="emp-card-header">
         <div className="emp-avatar" style={{ background: avatarColor || '#1a3a6b' }}>
           {avatar || name?.slice(0, 2).toUpperCase()}
@@ -193,6 +225,7 @@ const EmployeeCard = memo(({ data, selected }) => {
         <div className="emp-name-block">
           <div className="emp-name">{name}</div>
           <div className="emp-designation">{designation}</div>
+<<<<<<< HEAD
           {show("id") && (
             <div className="emp-id-badge">#{id?.replace("LOCAL-", "L-")}</div>
           )}
@@ -249,6 +282,24 @@ const EmployeeCard = memo(({ data, selected }) => {
           </div>
         </>
       )}
+=======
+          <div className="emp-id-badge">#{id?.replace("LOCAL-", "L-")}</div>
+        </div>
+      </div>
+
+      <div className="emp-card-divider" />
+
+      <div className="emp-meta">
+        <div className="emp-meta-item">
+          <Building2 size={11} />
+          <span>{department || "—"}</span>
+        </div>
+        <div className="emp-meta-item">
+          <MapPin size={11} />
+          <span>{location || "—"}</span>
+        </div>
+      </div>
+>>>>>>> ed8451212a7a20efc6a494620af9462aa2b382e6
 
       <Handle type="source" position={Position.Bottom} style={{
         background: levelColor, width: 8, height: 8,

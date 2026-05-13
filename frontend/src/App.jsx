@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // /**
 //  * App.jsx - Root application component
 //  */
@@ -453,6 +454,8 @@
 
 
 
+=======
+>>>>>>> ed8451212a7a20efc6a494620af9462aa2b382e6
 /**
  * App.jsx - Root application component
  */
@@ -461,7 +464,11 @@ import { ReactFlowProvider, useNodesState, useEdgesState } from "reactflow";
 import "./App.css";
 import LoginPage from "./pages/LoginPage";
 import ProfileMenu from "./components/ProfileMenu";
+<<<<<<< HEAD
 import LeftPanel, { DEFAULT_FIELDS } from "./components/LeftPanel";
+=======
+
+>>>>>>> ed8451212a7a20efc6a494620af9462aa2b382e6
 import Header from "./components/Header";
 import OrgChart from "./components/OrgChart";
 import EmployeeDetailsPanel from "./components/EmployeeDetailsPanel";
@@ -483,10 +490,13 @@ const AppInner = () => {
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [searchQuery, setSearchQuery]           = useState("");
   const [selectedDept, setSelectedDept]         = useState("");
+<<<<<<< HEAD
   const [parkedEmployees, setParkedEmployees] = useState([]);
   const [enabledFields, setEnabledFields]     = useState(DEFAULT_FIELDS);
   const [compareMode, setCompareMode]         = useState(false);
   const [compareEmployees, setCompareEmployees] = useState([]);
+=======
+>>>>>>> ed8451212a7a20efc6a494620af9462aa2b382e6
 
   // localEdits: stores edited field values per employee { [empId]: { field: value } }
   const [localEdits, setLocalEdits] = useState({});
@@ -537,11 +547,16 @@ const handleLogout = () => {
 
   useEffect(() => { loadData(); }, [loadData]);
 
+<<<<<<< HEAD
   // ── Rebuild chart when employees change (layout changes) ──────────────────
+=======
+  // ── Rebuild chart when new static employees are added ─────────────────────
+>>>>>>> ed8451212a7a20efc6a494620af9462aa2b382e6
   useEffect(() => {
     if (allEmployees.length > 0) {
       const combined = [...allEmployees, ...staticNewEmployees];
       const { nodes: n, edges: e } = buildFlowElements(combined);
+<<<<<<< HEAD
       setNodes(n.map(node => ({ ...node, data: { ...node.data, enabledFields } })));
       setEdges(e);
     }
@@ -556,6 +571,12 @@ const handleLogout = () => {
       }))
     );
   }, [enabledFields]);
+=======
+      setNodes(n);
+      setEdges(e);
+    }
+  }, [staticNewEmployees, allEmployees]);
+>>>>>>> ed8451212a7a20efc6a494620af9462aa2b382e6
 
 
   // ── Sync localEdits into node data so tree cards update live ──────────────────
@@ -630,6 +651,7 @@ useEffect(() => {
   });
 }, []);
 
+<<<<<<< HEAD
 const handleDetachEmployee = useCallback(
   (employeeId) => {
     setAllEmployees((prev) => {
@@ -736,6 +758,8 @@ const handleRemoveFromParking = useCallback((employeeId) => {
   }, []);
 
 
+=======
+>>>>>>> ed8451212a7a20efc6a494620af9462aa2b382e6
   // ── Add new static employee ───────────────────────────────────────────────
   const handleAddEmployee = useCallback((newEmp) => {
     setStaticNewEmployees(prev => [...prev, newEmp]);
@@ -780,11 +804,14 @@ const handleDownload = useCallback(() => {
     setSelectedEmployee((prev) => (prev?.id === empId ? null : emp));
   }, [allEmployees, staticNewEmployees]);
 
+<<<<<<< HEAD
   // React Flow passes (event, node) — extract id and forward
   const handleReactFlowNodeClick = useCallback((_event, node) => {
     handleNodeClick(node.id);
   }, [handleNodeClick]);
 
+=======
+>>>>>>> ed8451212a7a20efc6a494620af9462aa2b382e6
   const handleClosePanel   = useCallback(() => setSelectedEmployee(null), []);
   const handleSearchChange = useCallback((val) => setSearchQuery(val), []);
   const handleSearchClear  = useCallback(() => setSearchQuery(""), []);
@@ -837,6 +864,7 @@ if (!currentUser) {
         onAddEmployee={handleAddEmployee}
         allEmployees={[...allEmployees, ...staticNewEmployees]}
         onDownload={handleDownload}
+<<<<<<< HEAD
         currentUser={currentUser}
         onLogout={handleLogout}
       />
@@ -845,6 +873,13 @@ if (!currentUser) {
         className={`app-body ${panelOpen ? "panel-open" : ""}`}
         style={{ paddingLeft: 268, transition: "padding-left 0.22s" }}
       >
+=======
+        currentUser={currentUser}       
+        onLogout={handleLogout}          
+      />
+
+      <div className={`app-body ${panelOpen ? "panel-open" : ""}`}>
+>>>>>>> ed8451212a7a20efc6a494620af9462aa2b382e6
         <div className="chart-area">
 
           {loading && (
@@ -880,6 +915,7 @@ if (!currentUser) {
               edges={edges}
               onNodesChange={onNodesChange}
               onEdgesChange={onEdgesChange}
+<<<<<<< HEAD
               onNodeClick={handleReactFlowNodeClick}
               filteredIds={filteredIds}
               onReLayout={handleReLayout}
@@ -889,6 +925,13 @@ if (!currentUser) {
               onManagerChange={handleManagerChange}
               onDetachEmployee={handleDetachEmployee}
               onReattachFromParking={handleReattachFromDrop}
+=======
+              onNodeClick={handleNodeClick}
+              selectedEmployeeId={selectedEmployee?.id}
+              searchQuery={searchQuery}
+              filteredIds={filteredIds}
+              onReLayout={handleReLayout}
+>>>>>>> ed8451212a7a20efc6a494620af9462aa2b382e6
               staticEmployeeIds={staticNewEmployees.map(e => e.id)}
             />
           )}
@@ -907,7 +950,10 @@ if (!currentUser) {
           )}
         </div>
 
+<<<<<<< HEAD
         {/* Details panel — slides in from right when a card is selected */}
+=======
+>>>>>>> ed8451212a7a20efc6a494620af9462aa2b382e6
         <EmployeeDetailsPanel
           employee={selectedWithEdits}
           allEmployees={[...allEmployees, ...staticNewEmployees]}
@@ -919,6 +965,7 @@ if (!currentUser) {
           localEdits={localEdits[selectedEmployee?.id] || {}}
         />
       </div>
+<<<<<<< HEAD
 
       {/* Left Panel — Tile Fields / Parking Lot / Scenarios */}
       <LeftPanel
@@ -933,6 +980,8 @@ if (!currentUser) {
         onLoadScenario={handleLoadScenario}
         onCompareScenario={handleCompareScenario}
       />
+=======
+>>>>>>> ed8451212a7a20efc6a494620af9462aa2b382e6
     </div>
   );
 };
