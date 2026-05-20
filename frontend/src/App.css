@@ -514,7 +514,6 @@ body {
   stroke-dasharray: 0;
 }
 
-/* ─── Side Panel ─────────────────────────────────────────────────────────────── */
 .side-panel {
   position: absolute;
   top: 0;
@@ -528,14 +527,18 @@ body {
   overflow: hidden;
   z-index: 20;
   box-shadow: -4px 0 24px rgba(0, 0, 0, 0.1);
+
   transform: translateX(100%);
-  visibility: hidden;
-  transition: transform var(--transition-slow), visibility var(--transition-slow);
+  opacity: 0;
+  pointer-events: none;
+
+  transition: all 0.3s ease;
 }
 
 .side-panel.open {
   transform: translateX(0);
-  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .side-panel-header {

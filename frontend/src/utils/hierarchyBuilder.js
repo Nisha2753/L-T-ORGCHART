@@ -174,8 +174,8 @@ export default {
   getAncestors,
   getDescendants,
   filterWithContext,
-<<<<<<< HEAD
+
 };
-=======
-};
->>>>>>> ed8451212a7a20efc6a494620af9462aa2b382e6
+
+
+

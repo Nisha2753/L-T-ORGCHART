@@ -16,7 +16,7 @@ const API_BASE  = process.env.SF_API_BASE  || "https://apisalesdemo2.successfact
 const USERNAME  = process.env.SF_USERNAME  || "CPI@SFCPART002436";
 const PASSWORD  = process.env.SF_PASSWORD  || "Orane@122";
 const MAX_DEPTH = parseInt(process.env.MAX_DEPTH) || 6;
-const ROOT_CODE = process.env.ROOT_CODE    || "12000118";
+const ROOT_CODE = process.env.ROOT_CODE    || "12000031";
 
 const AUTH = { username: USERNAME, password: PASSWORD };
 const HEADERS = { Accept: "application/json" };

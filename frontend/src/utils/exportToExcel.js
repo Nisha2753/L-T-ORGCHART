@@ -181,33 +181,31 @@ export function exportToExcel(
     ...dataRows,
   ].join("\n");
 
-  // ── Trigger download ────────────────────────────────────────────────────────
-  // BOM (0xFEFF) makes Excel open UTF-8 correctly
-  const BOM = "\uFEFF";
-  const blob = new Blob([BOM + csvContent], {
-<<<<<<< HEAD
-    type: "text/csv;charset=utf-8",
-  });
+ // ── Trigger download ────────────────────────────────────────────────────────
+// BOM (0xFEFF) makes Excel open UTF-8 correctly
+const BOM = "\uFEFF";
 
-  const date  = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
-  // const fname = filename || `LT_OrgChart_${date}.csv`;
-  const fname = filename ? filename.replace('.xlsx', '.csv') : 'LT_OrgChart_${date}.csv';
-=======
-    type: "application/vnd.ms-excel;charset=utf-8",
-  });
+const blob = new Blob([BOM + csvContent], {
+  type: "text/csv;charset=utf-8",
+});
 
-  const date  = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
-  const fname = filename || `LT_OrgChart_${date}.xlsx`;
->>>>>>> ed8451212a7a20efc6a494620af9462aa2b382e6
+const date = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
 
-  const url  = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-  link.href     = url;
-  link.download = fname;
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-  URL.revokeObjectURL(url);
+const fname = filename
+  ? filename.replace(".xlsx", ".csv")
+  : `LT_OrgChart_${date}.csv`;
+
+const url = URL.createObjectURL(blob);
+const link = document.createElement("a");
+
+link.href = url;
+link.download = fname;
+
+document.body.appendChild(link);
+link.click();
+document.body.removeChild(link);
+
+URL.revokeObjectURL(url);
 }
 
 export default exportToExcel;

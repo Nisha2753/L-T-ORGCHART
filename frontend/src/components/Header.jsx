@@ -471,10 +471,10 @@ const Header = ({
       )}
 
       {/* Profile Modal */}
-      <ProfileModal
-        isOpen={true}
-        onClose={() => setShowProfile(false)}
-      />
+<ProfileModal
+  isOpen={showProfile}
+  onClose={() => setShowProfile(false)}
+/>
     </>
   );
 };

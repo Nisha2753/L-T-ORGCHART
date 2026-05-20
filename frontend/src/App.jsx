@@ -9,7 +9,7 @@ import LoginPage from "./pages/LoginPage";
 import LeftPanel, { DEFAULT_FIELDS } from "./components/LeftPanel";
 import Header from "./components/Header";
 import OrgChart from "./components/OrgChart";
-import EmployeeDetailsPanel from "./components/EmployeeDetailsPanel";
+import EmployeeDetailsPanel from "./components/EmployeeDetailsPanel";//
 
 import { exportToExcel } from "./utils/exportToExcel";
 import {
@@ -304,22 +304,32 @@ const AppInner = () => {
   }, [allEmployees, staticNewEmployees, searchQuery, selectedDept]);
 
   const handleNodeClick = useCallback(
-    (empId) => {
-      const combined = [...allEmployees, ...staticNewEmployees];
-      const emp = combined.find((e) => e.id === empId);
-      setSelectedEmployee((prev) => (prev?.id === empId ? null : emp));
-    },
-    [allEmployees, staticNewEmployees]
-  );
+  (empId) => {
+    const combined = [...allEmployees, ...staticNewEmployees];
+    const emp = combined.find((e) => e.id === empId);
+
+    setSelectedEmployee(emp);
+  },
+  [allEmployees, staticNewEmployees]
+);
+
+  // const handleReactFlowNodeClick = useCallback(
+  //   (_event, node) => {
+  //     handleNodeClick(node.id);
+  //   },
+  //   [handleNodeClick]
+  // );
 
   const handleReactFlowNodeClick = useCallback(
-    (_event, node) => {
-      handleNodeClick(node.id);
-    },
-    [handleNodeClick]
-  );
+  (nodeId) => {
+    handleNodeClick(nodeId);
+  },
+  [handleNodeClick]
+);
 
-  const handleClosePanel = useCallback(() => setSelectedEmployee(null), []);
+  const handleClosePanel = () => {
+  setSelectedEmployee(null);
+};
   const handleSearchChange = useCallback((val) => setSearchQuery(val), []);
   const handleSearchClear = useCallback(() => setSearchQuery(""), []);
   const handleDeptChange = useCallback((val) => setSelectedDept(val), []);
@@ -381,7 +391,7 @@ const AppInner = () => {
 
       <div
         className={`app-body ${panelOpen ? "panel-open" : ""}`}
-        style={{ paddingLeft: 268, transition: "padding-left 0.22s" }}
+      
       >
         <div className="chart-area">
           {loading && (
@@ -493,19 +503,21 @@ const AppInner = () => {
           )}
         </div>
 
-        <EmployeeDetailsPanel
-          employee={selectedWithEdits}
-          allEmployees={[...allEmployees, ...staticNewEmployees]}
-          onClose={handleClosePanel}
-          onRefresh={USE_API ? handleRefresh : null}
-          onLocalEdit={handleLocalEdit}
-          isStatic={selectedEmployee ? isStaticEmployee(selectedEmployee.id) : false}
-          onDeleteStatic={handleDeleteStaticEmployee}
-          localEdits={localEdits[selectedEmployee?.id] || {}}
+        {selectedEmployee && (
+  <EmployeeDetailsPanel
+    employee={selectedWithEdits}
+    allEmployees={[...allEmployees, ...staticNewEmployees]}
+    onClose={() => setSelectedEmployee(null)}
+    onRefresh={USE_API ? handleRefresh : null}
+    onLocalEdit={handleLocalEdit}
+    isStatic={isStaticEmployee(selectedEmployee.id)}
+    onDeleteStatic={handleDeleteStaticEmployee}
+    localEdits={localEdits[selectedEmployee?.id] || {}}
         />
+      )}
       </div>
 
-      <LeftPanel
+       <LeftPanel
         parkedEmployees={parkedEmployees}
         allEmployees={[...allEmployees, ...staticNewEmployees]}
         onReattach={handleReattachFromButton}
@@ -516,7 +528,7 @@ const AppInner = () => {
         currentEmployees={[...allEmployees, ...staticNewEmployees]}
         onLoadScenario={handleLoadScenario}
         onCompareScenario={handleCompareScenario}
-      />
+      /> 
     </div>
   );
 };
