@@ -5,7 +5,7 @@
 import { useState, useRef, useEffect } from "react";
 import { LogOut, User, Shield, ChevronDown } from "lucide-react";
 
-const ProfileMenu = ({ user, onLogout }) => {
+const ProfileMenu = ({ user, onLogout, onProfileClick }) => {
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
 
@@ -120,7 +120,14 @@ const ProfileMenu = ({ user, onLogout }) => {
           {/* Menu items */}
           <div style={{ padding: "6px 0" }}>
 
-            <MenuItem icon={User} label="My Profile" onClick={() => setOpen(false)} />
+         <MenuItem icon={User}
+  label="My Profile"
+  onClick={() => {
+    console.log("My Profile clicked");
+    setOpen(false);
+    if (onProfileClick) onProfileClick();
+  }}
+/>
             <MenuItem icon={Shield} label="Permissions" onClick={() => setOpen(false)} />
 
             {/* Divider */}
