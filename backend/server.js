@@ -25,16 +25,25 @@ const FRONTEND_URL =
 const CACHE_FILE = path.join(__dirname, "orgChart.json");
 
 // ─── Middleware ───────────────────────────────────────────────────────────────
-app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin) return callback(null, true);
-    if (origin.match(/^http:\/\/localhost:\d+$/)) return callback(null, true);
-    if (origin === FRONTEND_URL) return callback(null, true);
+// app.use(cors({
+//   origin: (origin, callback) => {
+//     if (!origin) return callback(null, true);
+//     if (origin.match(/^http:\/\/localhost:\d+$/)) return callback(null, true);
+//     if (origin === FRONTEND_URL) return callback(null, true);
 
-    callback(new Error(`CORS blocked: ${origin}`));
-  },
-  methods: ["GET", "POST", "OPTIONS"],
-  credentials: true,
+//     callback(new Error(`CORS blocked: ${origin}`));
+//   },
+//   methods: ["GET", "POST", "OPTIONS"],
+//   credentials: true,
+// }));
+const cors = require("cors");
+
+app.use(cors({
+  origin: [
+    "https://l-t-orgchart.vercel.app",
+    "https://l-t-orgchart-gfmva0xhj-nisha2753s-projects.vercel.app"
+  ],
+  credentials: true
 }));
 
 app.use(express.json());
