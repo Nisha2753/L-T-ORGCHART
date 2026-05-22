@@ -36,15 +36,27 @@ const CACHE_FILE = path.join(__dirname, "orgChart.json");
 //   methods: ["GET", "POST", "OPTIONS"],
 //   credentials: true,
 // }));
+//const cors = require("cors");
+
+// app.use(cors({
+//   origin: [
+//     "https://l-t-orgchart.vercel.app",
+//     "https://l-t-orgchart-gfmva0xhj-nisha2753s-projects.vercel.app"
+//   ],
+//   credentials: true
+// }));
 const cors = require("cors");
 
-app.use(cors({
-  origin: [
-    "https://l-t-orgchart.vercel.app",
-    "https://l-t-orgchart-gfmva0xhj-nisha2753s-projects.vercel.app"
-  ],
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000",
+      "https://l-t-orgchart.vercel.app",
+      "https://l-t-orgchart-20lgqbutg-nisha2753s-projects.vercel.app"
+    ],
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 
