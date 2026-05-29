@@ -30,7 +30,7 @@ import { buildFlowElements, applyDagreLayout } from "./utils/hierarchyBuilder";
 
 const API_BASE =
   import.meta.env.VITE_API_URL ||
-  "https://l-t-orgchart-api.onrender.com";
+  "https://l-t-orgchart.onrender.com";
 
 const AppInner = () => {
   const [allEmployees, setAllEmployees]         = useState([]);
