@@ -57,10 +57,16 @@ const EmployeeCard = memo(({ data, selected }) => {
     .join(" ");
 
   return (
-    <div className={cardClass} style={{ "--level-color": levelColor }}>
+    <div
+      className={`${cardClass} ${
+        data.isDropTarget ? "employee-card--drop-target" : ""
+      }`}
+      style={{ "--level-color": levelColor }}
+    >
       <Handle
         type="target"
         position={Position.Top}
+        isConnectable={false}
         style={{
           background: levelColor,
           width: 8,
@@ -72,6 +78,7 @@ const EmployeeCard = memo(({ data, selected }) => {
 
       {onDetach && (
         <button
+          className="nodrag"
           onClick={(e) => {
             e.stopPropagation();
             onDetach(id);
@@ -140,7 +147,7 @@ const EmployeeCard = memo(({ data, selected }) => {
             overflow: "hidden",
           }}
         >
-          {avatar && avatar.startsWith("data:image") ? (
+          {/* {avatar && avatar.startsWith("data:image") ? (
             <img
               src={avatar}
               alt={name}
@@ -153,7 +160,24 @@ const EmployeeCard = memo(({ data, selected }) => {
             />
           ) : (
             <span>{initials || name?.slice(0, 2).toUpperCase()}</span>
-          )}
+          )} */}
+          {avatar ? (
+  <img
+    src={avatar}
+    alt={name}
+    onError={(e) => {
+      e.currentTarget.style.display = "none";
+    }}
+    style={{
+      width: "100%",
+      height: "100%",
+      objectFit: "cover",
+      borderRadius: "50%",
+    }}
+  />
+) : (
+  <span>{initials || name?.slice(0, 2).toUpperCase()}</span>
+)}
 
           <div className="emp-avatar-ring" />
         </div>
@@ -163,9 +187,7 @@ const EmployeeCard = memo(({ data, selected }) => {
           <div className="emp-designation">{designation}</div>
 
           {show("id") && (
-            <div className="emp-id-badge">
-              #{id?.replace("LOCAL-", "L-")}
-            </div>
+            <div className="emp-id-badge">#{id?.replace("LOCAL-", "L-")}</div>
           )}
         </div>
       </div>
@@ -236,6 +258,7 @@ const EmployeeCard = memo(({ data, selected }) => {
       <Handle
         type="source"
         position={Position.Bottom}
+        isConnectable={false}
         style={{
           background: levelColor,
           width: 8,
